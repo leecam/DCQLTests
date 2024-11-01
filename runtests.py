@@ -4,12 +4,13 @@ import json
 import os
 import logging
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="[%(levelname)s] %(message)s"
-)
-logger = logging.getLogger(__name__)
+from logger_formatter import CustomFormatter
 
+logger = logging.getLogger(__name__)
+ch = logging.StreamHandler()
+ch.setFormatter(CustomFormatter())
+logger.addHandler(ch)
+logger.setLevel(logging.INFO)
 
 def get_test_cases(path):
     return [
@@ -51,7 +52,7 @@ def main():
         expected_result = test["expected_result"]["matched_credentials"]
         
         if not expected_result == matched_credentials:
-            logger.error(f"[FAIL] Expected: {json.dumps(expected_result)}")
+            logger.error(f"Expctd: {json.dumps(expected_result)}")
 
 
 if __name__ == "__main__":
