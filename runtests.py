@@ -3,6 +3,7 @@ import dcql
 import json
 import os
 import logging
+import sys
 
 from logger_formatter import CustomFormatter
 
@@ -53,6 +54,7 @@ def main():
         
         if not expected_result == matched_credentials:
             logger.error(f"Expctd: {json.dumps(expected_result)}")
+            sys.exit(1)
 
 
 if __name__ == "__main__":
